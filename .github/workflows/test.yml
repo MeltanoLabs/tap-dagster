@@ -49,6 +49,9 @@ jobs:
       with:
         version: ">=0.7"
     - name: Run Tox
+      env:
+        TAP_DAGSTER_API_TOKEN: ${{ secrets.TAP_DAGSTER_API_TOKEN }}
+        TAP_DAGSTER_BASE_URL: ${{ secrets.TAP_DAGSTER_BASE_URL }}
       run: |
         uvx --with=tox-uv tox -e $(echo py${{ matrix.python-version }} | tr -d .)
 
