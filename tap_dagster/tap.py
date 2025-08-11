@@ -19,6 +19,7 @@ class TapDagster(Tap):
     """Dagster tap class."""
 
     name = "tap-dagster"
+    package_name = "meltanolabs-tap-dagster"
 
     config_jsonschema = th.PropertiesList(
         th.Property(
@@ -55,6 +56,7 @@ class TapDagster(Tap):
             A list of discovered streams.
         """
         return [
+            streams.AssetsStream(self),
             streams.RunsStream(self),
         ]
 
