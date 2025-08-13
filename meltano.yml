@@ -1,6 +1,6 @@
 version: 1
 send_anonymous_usage_stats: true
-project_id: "tap-dagster"
+project_id: tap-dagster
 default_environment: test
 venv:
   backend: uv
@@ -8,8 +8,8 @@ environments:
 - name: test
 plugins:
   extractors:
-  - name: "tap-dagster"
-    namespace: "tap_dagster"
+  - name: tap-dagster
+    namespace: tap_dagster
     pip_url: -e .
     capabilities:
     - state
@@ -18,13 +18,16 @@ plugins:
     - about
     - stream-maps
 
+    settings_group_validation:
+    - [api_token, base_url]
+
     settings:
     - name: api_token
+      kind: string
       label: API Token
-      kind: password
-      sensitive: true
       description: The API token to use for authentication
 
+      sensitive: true
     - name: base_url
       label: Base URL
       description: The base URL for the Dagster Cloud API
@@ -34,9 +37,6 @@ plugins:
       label: Start Date
       description: Initial date to start extracting data from
 
-    settings_group_validation:
-    - [api_token, base_url]
-
     config:
       start_date: '2025-01-01T00:00:00Z'
 
@@ -44,3 +44,6 @@ plugins:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
+  - name: target-duckdb
+    variant: jwills
+    pip_url: target-duckdb~=0.8
